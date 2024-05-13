@@ -3,13 +3,17 @@ package service
 import (
 	"github.com/flaviosenne/huncoding/src/configuration/rest_err"
 	"github.com/flaviosenne/huncoding/src/model"
+	"github.com/flaviosenne/huncoding/src/model/repository"
 )
 
-func NewUserDomainService() UserDomainService {
-	return &userDomainService{}
+func NewUserDomainService(repo repository.UserRepository) UserDomainService {
+	return &userDomainService{
+		userRepository: repo,
+	}
 }
 
 type userDomainService struct {
+	userRepository repository.UserRepository
 }
 
 type UserDomainService interface {
