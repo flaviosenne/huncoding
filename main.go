@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 
+	"github.com/flaviosenne/huncoding/src/configuration/database/mongodb"
 	"github.com/flaviosenne/huncoding/src/configuration/logger"
 	"github.com/flaviosenne/huncoding/src/controller"
 	"github.com/flaviosenne/huncoding/src/controller/routes"
@@ -17,6 +18,8 @@ func main() {
 	if err != nil {
 		log.Fatal("Erro em carregar variáveis de ambiente")
 	}
+
+	mongodb.InitConnection()
 
 	//inicializar as dependencias
 	sevice := service.NewUserDomainService()
