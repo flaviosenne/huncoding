@@ -5,10 +5,14 @@ import (
 
 	"github.com/flaviosenne/huncoding/src/configuration/logger"
 	"github.com/flaviosenne/huncoding/src/configuration/validation"
-	"github.com/flaviosenne/huncoding/src/model/request"
-	"github.com/flaviosenne/huncoding/src/model/response"
+	"github.com/flaviosenne/huncoding/src/controller/model/request"
+	"github.com/flaviosenne/huncoding/src/model"
 	"github.com/gin-gonic/gin"
 	"go.uber.org/zap"
+)
+
+var (
+	UserDomainInterface model.UserDomainInterface
 )
 
 func CreateUser(c *gin.Context) {
@@ -23,13 +27,14 @@ func CreateUser(c *gin.Context) {
 		return
 	}
 
-	logger.Info("Criado usuário com sucesso", zap.String("journey", "createUser"))
-	response := response.UserResponse{
-		ID:    "test",
-		Email: userRequest.Email,
-		Name:  userRequest.Name,
-		Age:   userRequest.Age,
+	domain := model.NewUserDomain(userRequest.Email, userRequest.Password, userRequest.Name, userRequest.Age)
+
+	if err := domain.CreateUser(); err != nil {
+		c.JSON(err.Code, err)
+		return
 	}
 
-	c.JSON(http.StatusOK, response)
+	logger.Info("Criado usuário com sucesso controller", zap.String("journey", "createUser"))
+
+	c.String(http.StatusOK, "")
 }
