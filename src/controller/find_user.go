@@ -5,11 +5,11 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func FindUserById(c *gin.Context) {
+func (*userControllerInterface) FindUserById(c *gin.Context) {
 
 }
 
-func FindUserByEmail(c *gin.Context) {
+func (*userControllerInterface) FindUserByEmail(c *gin.Context) {
 	err := rest_err.NewBadRequestError("Email não existe")
 	c.JSON(err.Code, err)
 }
