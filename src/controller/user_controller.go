@@ -5,7 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func NewUserControllerInterface(serviceInterface service.UserDomainService) UserControllerInterface {
+func NewUserControllerInterface(serviceInterface service.UserDomainServiceInterface) UserControllerInterface {
 	return &userControllerInterface{
 		service: serviceInterface,
 	}
@@ -21,5 +21,5 @@ type UserControllerInterface interface {
 }
 
 type userControllerInterface struct {
-	service service.UserDomainService
+	service service.UserDomainServiceInterface
 }

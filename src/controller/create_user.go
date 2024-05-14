@@ -21,7 +21,8 @@ func (uc *userControllerInterface) CreateUser(c *gin.Context) {
 	var userRequest request.UserRequest
 
 	if err := c.ShouldBindJSON(&userRequest); err != nil {
-		logger.Error("Erro em tentar converter objeto", err, zap.String("journey", "createUser"))
+		logger.Error("Erro em tentar converter objeto", err,
+			zap.String("journey", "createUser"))
 		restErr := validation.ValidateUserError(err)
 
 		c.JSON(restErr.Code, restErr)
@@ -34,12 +35,17 @@ func (uc *userControllerInterface) CreateUser(c *gin.Context) {
 		userRequest.Name,
 		userRequest.Age,
 	)
-	if err := uc.service.CreateUser(domain); err != nil {
+	result, err := uc.service.CreateUser(domain)
+	if err != nil {
+		logger.Error("Erro em criar usuário  controller", err,
+			zap.String("journey", "createUser"))
 		c.JSON(err.Code, err)
 		return
 	}
 
-	logger.Info("Criado usuário com sucesso controller", zap.String("journey", "createUser"))
+	logger.Info("Criado usuário com sucesso controller",
+		zap.String("userId", domain.GetID()),
+		zap.String("journey", "createUser"))
 
-	c.JSON(http.StatusOK, view.ConvertDomainToResponse(domain))
+	c.JSON(http.StatusOK, view.ConvertDomainToResponse(result))
 }

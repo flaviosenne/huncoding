@@ -19,9 +19,11 @@ func NewMongoDBConnection(ctx context.Context) (*mongo.Database, error) {
 	mongodDatabase := os.Getenv(MONGODB_USER_DB)
 	client, err := mongo.Connect(ctx, options.Client().ApplyURI(mongodbUri))
 	if err != nil {
+		logger.Error("Erro em conectar com mongo", err)
 		return nil, err
 	}
 	if err := client.Ping(ctx, nil); err != nil {
+		logger.Error("erro em dar o ping com mongo", err)
 		return nil, err
 	}
 

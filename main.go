@@ -16,16 +16,14 @@ import (
 
 func main() {
 	logger.Info("Está começando")
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Erro em carregar variáveis de ambiente")
-	}
+	godotenv.Load()
 
 	//inicializar as dependencias
 	database, err := mongodb.NewMongoDBConnection(context.Background())
 	if err != nil {
-		log.Fatal("Erro em conectar com banco de dados")
+		return
 	}
+
 	repo := repository.NewUserRepository(database)
 	sevice := service.NewUserDomainService(repo)
 	userController := controller.NewUserControllerInterface(sevice)

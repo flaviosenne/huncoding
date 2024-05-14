@@ -5,6 +5,6 @@ import (
 	"github.com/flaviosenne/huncoding/src/model"
 )
 
-func (*userDomainService) FindUser(id string) (*model.UserDomainInterface, *rest_err.RestErr) {
+func (*userDomainService) FindUser(id string) (model.UserDomainInterface, *rest_err.RestErr) {
 	return nil, nil
 }

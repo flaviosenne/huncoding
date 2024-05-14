@@ -6,19 +6,19 @@ import (
 	"github.com/flaviosenne/huncoding/src/model/repository"
 )
 
-func NewUserDomainService(repo repository.UserRepository) UserDomainService {
+func NewUserDomainService(repo repository.UserRepositoryInterface) UserDomainServiceInterface {
 	return &userDomainService{
-		userRepository: repo,
+		repository: repo,
 	}
 }
 
 type userDomainService struct {
-	userRepository repository.UserRepository
+	repository repository.UserRepositoryInterface
 }
 
-type UserDomainService interface {
-	CreateUser(model.UserDomainInterface) *rest_err.RestErr
+type UserDomainServiceInterface interface {
+	CreateUser(model.UserDomainInterface) (model.UserDomainInterface, *rest_err.RestErr)
 	UpdateUser(string, model.UserDomainInterface) *rest_err.RestErr
-	FindUser(string) (*model.UserDomainInterface, *rest_err.RestErr)
+	FindUser(string) (model.UserDomainInterface, *rest_err.RestErr)
 	DeleteUser(string) *rest_err.RestErr
 }
