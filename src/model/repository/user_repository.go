@@ -6,7 +6,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-var (
+const (
 	MONGODB_USER_COLLECTION = "MONGODB_USER_COLLECTION"
 )
 
@@ -22,4 +22,6 @@ type userRepository struct {
 
 type UserRepositoryInterface interface {
 	CreateUser(userDomain model.UserDomainInterface) (model.UserDomainInterface, *rest_err.RestErr)
+	FindUserByEmail(email string) (model.UserDomainInterface, *rest_err.RestErr)
+	FindUserByID(id string) (model.UserDomainInterface, *rest_err.RestErr)
 }

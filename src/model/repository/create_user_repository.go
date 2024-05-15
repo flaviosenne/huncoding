@@ -14,7 +14,8 @@ import (
 
 func (ur *userRepository) CreateUser(userDomain model.UserDomainInterface) (model.UserDomainInterface, *rest_err.RestErr) {
 
-	logger.Info("Iniciou criação do usuário no repository", zap.String("journey", "createUser"))
+	logger.Info("Iniciou criação do usuário no repository",
+		zap.String("journey", "createUser"))
 	collectionName := os.Getenv(MONGODB_USER_COLLECTION)
 
 	collection := ur.databaseConnection.Collection(collectionName)
