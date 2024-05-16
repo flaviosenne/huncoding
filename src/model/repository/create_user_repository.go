@@ -31,7 +31,7 @@ func (ur *userRepository) CreateUser(userDomain model.UserDomainInterface) (mode
 
 	value.ID = result.InsertedID.(primitive.ObjectID)
 
-	logger.Info("Iniciou criação do usuário no repository",
+	logger.Info("Criação com sucesso do usuário no repository",
 		zap.String("userId", value.ID.Hex()),
 		zap.String("journey", "createUser"))
 
