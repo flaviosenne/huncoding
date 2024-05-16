@@ -8,7 +8,7 @@ import (
 	"github.com/flaviosenne/huncoding/src/configuration/rest_err"
 	"github.com/flaviosenne/huncoding/src/view"
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.uber.org/zap"
 )
 
@@ -19,7 +19,7 @@ func (uc *userControllerInterface) FindUserByID(c *gin.Context) {
 
 	userId := c.Param("id")
 
-	if _, err := uuid.Parse(userId); err != nil {
+	if _, err := primitive.ObjectIDFromHex(userId); err != nil {
 		errorMessage := rest_err.NewBadRequestError("userId não é um UUID válido")
 		logger.Error("id do usuário não é um UUID válido controller", err,
 			zap.String("userId", userId),
